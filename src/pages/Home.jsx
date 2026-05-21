@@ -141,14 +141,20 @@ const useScrollAnimation = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.05, rootMargin: '0px' }
     );
 
     if (ref.current) {
       observer.observe(ref.current);
     }
 
-    return () => observer.disconnect();
+    // Fallback: cards stay invisible (opacity: 0) if observer never fires (common on deployed sites)
+    const fallback = setTimeout(() => setIsVisible(true), 600);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallback);
+    };
   }, []);
 
   return [ref, isVisible];
