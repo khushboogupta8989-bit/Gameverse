@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import api from '../api';
+import { getAuthItem, setAuthItem } from '../authStorage';
 import './Profile.css';
 
 // ── YOUR LOCAL IMPORTS ──
@@ -57,8 +58,8 @@ const timeAgo = (d) => {
 
 // ── MAIN COMPONENT ──
 const Profile = () => {
-  const tp = (() => { try { const t = localStorage.getItem('token'); return t ? JSON.parse(atob(t.split('.')[1])) : null; } catch (e) { return null; } })();
-  const localUser = (() => { try { return JSON.parse(localStorage.getItem('user')); } catch (e) { return null; } })();
+  const tp = (() => { try { const t = getAuthItem('token'); return t ? JSON.parse(atob(t.split('.')[1])) : null; } catch (e) { return null; } })();
+  const localUser = (() => { try { return JSON.parse(getAuthItem('user')); } catch (e) { return null; } })();
   const userId = tp?.user?._id || tp?.user?.id || localUser?._id || localUser?.id;
 
   const [profile, setProfile] = useState(null);
@@ -96,7 +97,7 @@ const Profile = () => {
       } else {
         setProfile(p);
         setIsNewUser(false);
-        localStorage.setItem('gv_profile', JSON.stringify({ username: p.username, avatar: p.avatar }));
+        setAuthItem('gv_profile', JSON.stringify({ username: p.username, avatar: p.avatar }));
       }
     } catch (err) {
       if (err.response?.status === 404) { setIsNewUser(true); setProfile(null); }
@@ -117,7 +118,7 @@ const Profile = () => {
     setSetupErr(''); setSetupSaving(true);
     try {
       await api.post('/profile/create', { userId, username: setupUsername, avatar: setupAvatar, banner: setupBanner, achievements: ['profile_complete'] });
-      localStorage.setItem('gv_profile', JSON.stringify({ username: setupUsername, avatar: setupAvatar }));
+      setAuthItem('gv_profile', JSON.stringify({ username: setupUsername, avatar: setupAvatar }));
       notify('Profile created!');
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
@@ -157,7 +158,7 @@ const Profile = () => {
 
       if (Object.keys(u).length === 0) { setShowModal(false); return; }
       await api.put('/profile/update', { userId, ...u });
-      localStorage.setItem('gv_profile', JSON.stringify({ username: profile.username, avatar: eAvatar }));
+      setAuthItem('gv_profile', JSON.stringify({ username: profile.username, avatar: eAvatar }));
       notify('Profile updated!'); setShowModal(false); await fetchProfile();
     } catch (err) { notify('Failed to update', 'error'); }
     finally { setESaving(false); }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
+import { getAuthItem } from '../authStorage';
 import './Tournaments.css';
 import tournamentHeroBg from '../pages/bg-hero.jpg';
 
@@ -144,7 +145,9 @@ const TournamentModal = ({ tournament, onClose }) => {
             <a href={tournament.officialWebsite} target="_blank" rel="noreferrer" className="m-btn primary"
               onClick={() => {
                 try {
-                  const payload = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+                  const token = getAuthItem('token');
+                  if (!token) return;
+                  const payload = JSON.parse(atob(token.split('.')[1]));
                   const userId = payload?.user?._id || payload?.user?.id;
                   api.post('/profile/add-activity', { userId, action: `Viewed tournament: ${tournament.name}` }).catch(() => { });
                 } catch (e) { }
@@ -168,7 +171,9 @@ const Tournaments = () => {
   const handleTournamentClick = (tournament) => {
     setSelectedTournament(tournament);
     try {
-      const payload = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+      const token = getAuthItem('token');
+      if (!token) return;
+      const payload = JSON.parse(atob(token.split('.')[1]));
       const userId = payload?.user?._id || payload?.user?.id;
       if (userId) {
         api.post('/profile/add-activity', { userId, action: `Viewed tournament: ${tournament.name}` }).catch(() => {});

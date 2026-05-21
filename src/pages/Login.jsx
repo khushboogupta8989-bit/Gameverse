@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { login, register, getProfile } from '../api';
+import { setAuthItem } from '../authStorage';
 import './Login.css';
 
 const LoginSignup = ({ setUser }) => {
@@ -54,11 +55,11 @@ const LoginSignup = ({ setUser }) => {
         });
       }
 
-      localStorage.setItem('token', res.data.token);
+      setAuthItem('token', res.data.token);
 
       const userRes = await getProfile();
 
-      localStorage.setItem('user', JSON.stringify(userRes.data));
+      setAuthItem('user', JSON.stringify(userRes.data));
 
       // Update global state
       setUser(userRes.data);

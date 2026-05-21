@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import API from './api';
+import { getAuthItem, clearAuth, clearLegacyAuth } from './authStorage';
 
 // Components
 import Navbar from './components/Navbar';
@@ -32,8 +33,9 @@ function App() {
   const [appLoading, setAppLoading] = useState(true);
 
   useEffect(() => {
+    clearLegacyAuth();
     const initApp = async () => {
-      const token = localStorage.getItem('token');
+      const token = getAuthItem('token');
       if (!token) {
         setAppLoading(false);
         return;
@@ -44,7 +46,7 @@ function App() {
         setUser(res.data);
       } catch (err) {
         console.error("Session expired");
-        localStorage.removeItem('token');
+        clearAuth();
         setUser(null);
       } finally {
         setAppLoading(false);
@@ -54,9 +56,7 @@ function App() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('gv_profile');
+    clearAuth();
     setUser(null);
   };
 

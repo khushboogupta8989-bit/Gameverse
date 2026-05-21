@@ -70,10 +70,36 @@
     linear-gradient(180deg, transparent 0%, transparent 40%, var(--bg-deep) 100%);
 }
 
-.hero-inner { position: relative; z-index: 2; text-align: center; padding: 0 20px; opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.t-hero.vis .hero-inner { opacity: 1; transform: translateY(0); }
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 20px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; margin-bottom: 24px; backdrop-filter: blur(10px); }
-.hero-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; margin-bottom: 15px; }
+
+.t-page .hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 15px;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+}
+
+.t-page .hero-title .txt-grad {
+  background: linear-gradient(90deg, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 .hero-sub { color: #888; font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
 .txt-grad { background: linear-gradient(90deg, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 

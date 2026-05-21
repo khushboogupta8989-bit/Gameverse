@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../api'; // Uses your configured API
+import api from '../api';
+import { getAuthItem } from '../authStorage'; // Uses your configured API
 import './Community.css';
 // ADD THESE IMPORTS AT TOP OF Community.jsx
 import bgmiCommunity from '../assets/Games/bgmi-Community.webp';
@@ -83,7 +84,9 @@ const EventCard = ({ event, index, onJoin }) => {
       setStatus('joined');
       onJoin(event.name);
       try {
-        const payload = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+        const token = getAuthItem('token');
+        if (!token) return;
+        const payload = JSON.parse(atob(token.split('.')[1]));
         const userId = payload?.user?._id || payload?.user?.id;
         if (userId) {
           api.post('/profile/add-activity', { userId, action: `Joined community event: ${event.name}` }).catch(() => {});

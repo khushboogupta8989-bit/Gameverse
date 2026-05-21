@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
+import { getAuthItem } from '../authStorage';
 import './Games.css';
 
 // --- 1. IMPORT YOUR LOCAL IMAGES ---
@@ -262,7 +263,9 @@ const GameModal = ({ game, onClose }) => {
               className="official-site-btn"
               onClick={() => {
                 try {
-                  const payload = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+                  const token = getAuthItem('token');
+                  if (!token) return;
+                  const payload = JSON.parse(atob(token.split('.')[1]));
                   const userId = payload?.user?._id || payload?.user?.id;
 
                   // Smart extractor: checks all possible image variable names you might be using

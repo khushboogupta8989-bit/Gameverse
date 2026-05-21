@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api'; 
+import api from '../api';
+import { getAuthItem } from '../authStorage'; 
 import './Blog.css';
 
 // --- IMPORTS ---
@@ -31,7 +32,7 @@ const imageMap = {
 // --- GET LOGGED IN USER ---
 const getUser = () => {
   try {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(getAuthItem('user'));
     return user || null;
   } catch {
     return null;
@@ -53,7 +54,7 @@ const WriteModal = ({ onClose, onArticleAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+    const token = getAuthItem('token');
     
     if (!token) {
       alert("Please login to publish articles!");
@@ -136,7 +137,7 @@ const ReadModal = ({ article, onClose, user, onDelete }) => {
     e.stopPropagation();
     if (window.confirm('Are you sure you want to delete this article?')) {
       try {
-        const token = localStorage.getItem('token');
+        const token = getAuthItem('token');
         await api.delete(`/articles/${article._id}`, {
           headers: { 'x-auth-token': token }
         });

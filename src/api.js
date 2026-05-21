@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getAuthItem } from './authStorage';
 
 const isRender =
   typeof window !== 'undefined' && window.location.hostname.includes('onrender.com');
@@ -11,7 +12,7 @@ const API = axios.create({ baseURL: API_BASE });
 
 // This interceptor automatically attaches the JWT token to every "real" request
 API.interceptors.request.use((req) => {
-  const token = localStorage.getItem('token');
+  const token = getAuthItem('token');
   if (token) {
     req.headers['x-auth-token'] = token;
   }

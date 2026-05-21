@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import { getAuthItem } from '../authStorage';
 // THIS IS THE FIX - Import icons from react-icons, NOT react-router-dom:
 import { FaBars, FaTimes, FaUserCircle, FaGamepad, FaBell, FaCaretDown } from 'react-icons/fa';
 
@@ -71,7 +72,7 @@ const Navbar = ({ user, onLogout }) => {
               <div className="profile-menu-wrapper">
                 <button className="profile-btn" onClick={() => setIsProfileOpen(!isProfileOpen)}>
                   {(() => {
-                    const gv = JSON.parse(localStorage.getItem('gv_profile') || '{}');
+                    const gv = JSON.parse(getAuthItem('gv_profile') || '{}');
                     const hasValidAvatar = gv.avatar && gv.username === user.username;
                     return hasValidAvatar ? (
                       <img src={gv.avatar} alt="avatar" style={{width: '34px', height: '34px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #8b5cf6'}} />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api'; // 1. Import API
+import api from '../api';
+import { getAuthItem } from '../authStorage';
 import './Leaderboard.css';
 
 // --- PLAYER MODAL ---
@@ -69,7 +70,9 @@ const Leaderboard = () => {
   const handlePlayerClick = (player) => {
     setSelectedPlayer(player);
     try {
-      const payload = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+      const token = getAuthItem('token');
+      if (!token) return;
+      const payload = JSON.parse(atob(token.split('.')[1]));
       const userId = payload?.user?._id || payload?.user?.id;
       if (userId) {
         api.post('/profile/add-activity', { userId, action: `Viewed player ranking: ${player.name}` }).catch(() => {});
