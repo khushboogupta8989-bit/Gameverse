@@ -1,0 +1,311 @@
+/* =========================================
+   1. CSS Variables & Theme Setup
+   ========================================= */
+:root {
+  /* Core Colors */
+  --bg-dark: #0a0a12;
+  --bg-secondary: #12121d;
+  --bg-card: #1a1a2e;
+  
+  /* Accent Gradients */
+  --gradient-primary: linear-gradient(135deg, #8a2be2, #00ffff);
+  --gradient-secondary: linear-gradient(135deg, #ff69b4, #8a2be2);
+  --gradient-glow: linear-gradient(45deg, rgba(138, 43, 226, 0.5), rgba(0, 255, 255, 0.3));
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
+  --text-muted: #5a5a6e;
+
+  /* Fonts */
+  --font-primary: 'Rajdhani', sans-serif;
+  --font-heading: 'Orbitron', sans-serif;
+
+  /* Spacing & Effects */
+  --nav-height: 70px;
+  --glow-small: 0 0 10px rgba(138, 43, 226, 0.5);
+  --glow-large: 0 0 20px rgba(0, 255, 255, 0.4);
+  --transition-speed: 0.3s;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+}
+
+/* =========================================
+   2. Global Resets & Base Styles
+   ========================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  background-image: 
+    radial-gradient(circle at 50% 0%, #1a1a2e 0%, #0a0a12 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body, #root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* =========================================
+   3. Typography
+   ========================================= */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transform: translateZ(0);
+}
+
+p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-speed) ease;
+}
+
+/* =========================================
+   4. Layout Structure (CRITICAL FIX)
+   ========================================= */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--nav-height);
+}
+
+.page-wrapper {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  min-width: 60vh;
+}
+
+/* FIX 2: Force page wrapper to fill the main-content */
+.page-motion-wrapper {
+  flex: 1;
+  width: 100%;
+}
+
+/* =========================================
+   5. Reusable UI Components
+   ========================================= */
+
+/* Buttons */
+.btn-primary {
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: var(--gradient-primary);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-speed) ease;
+  box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow-large);
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg) translateY(-100%);
+  transition: transform 0.6s ease-in-out;
+}
+
+.btn-primary:hover::after {
+  transform: rotate(45deg) translateY(100%);
+}
+
+/* Inputs */
+.input-field {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  transition: all var(--transition-speed) ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--gradient-start);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.2);
+}
+
+/* =========================================
+   6. Scrollbar Styling
+   ========================================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gradient-start), var(--gradient-end));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-primary);
+}
+
+/* =========================================
+   7. Animations & Utilities
+   ========================================= */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px rgba(138, 43, 226, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); }
+  100% { box-shadow: 0 0 10px rgba(138, 43, 226, 0.2); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Loading Screen (FIX 3: Hardcoded Viewport Height) */
+.loading-screen-full {
+  width: 100%;
+  height: 100vh;
+  background: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.loader-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #00ffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Glassmorphism Utility */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+}
+
+/* =========================================
+   8. Responsive Breakpoints
+   ========================================= */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .page-wrapper {
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 60px;
+  }
+  
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+  
+  .page-wrapper {
+    padding: 1rem;
+  }
+  
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+footer {
+  margin-top: auto;
+}
