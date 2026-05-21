@@ -55,21 +55,37 @@
 
 /* Hero Section */
 .c-hero {
-  padding: 100px 5% 40px;
+  position: relative;
+  z-index: 2;
+  padding: 40px 5% 40px;
   text-align: center;
 }
 
-.hero-content {
+.contact-page .hero-content {
   max-width: 700px;
   margin: 0 auto;
 }
 
-.hero-title {
+/* Override global App.css h1 gradient (fixes invisible title on route change) */
+.contact-page .hero-title {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
   margin-bottom: 12px;
   line-height: 1.2;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+}
+
+.contact-page .hero-title .gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .hero-subtitle {

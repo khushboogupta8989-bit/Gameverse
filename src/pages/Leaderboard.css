@@ -22,8 +22,34 @@
 .txt-grad { background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; display: inline-block; transform: translateZ(0); }
 
 /* --- HERO SECTION --- */
-.lb-hero { padding: 110px 5% 40px; text-align: center; }
-.lb-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 10px; letter-spacing: 1px; }
+.lb-hero {
+  position: relative;
+  z-index: 2;
+  padding: 40px 5% 40px;
+  text-align: center;
+}
+
+/* Override global App.css h1 gradient (fixes invisible title on route change) */
+.leaderboard-page .lb-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+}
+
+.leaderboard-page .lb-title .txt-grad {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 .lb-sub { color: #888; font-size: 1.1rem; }
 
 /* --- FILTERS --- */
