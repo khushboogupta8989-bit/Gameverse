@@ -24,6 +24,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'x-auth-token', 'Authorization']
 }));
 
+app.get('/api/health', (req, res) => res.json({ ok: true, service: 'gameverse-api' }));
+
 // 3. API Routes
 try {
   // All profile logic should be inside this auth route file
