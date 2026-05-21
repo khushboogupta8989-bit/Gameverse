@@ -36,7 +36,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-page">
+    <div className="contact-page" style={{ paddingTop: '100px' }}>
       {/* Background Layer */}
       <div className="c-bg-layer">
         <div className="c-bg-image"></div>

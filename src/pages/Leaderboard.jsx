@@ -102,7 +102,7 @@ const Leaderboard = () => {
   });
 
   return (
-    <div className="leaderboard-page">
+    <div className="leaderboard-page" style={{ paddingTop: '100px' }}>
       <div className="lb-bg-layer">
         <div className="lb-bg-img"></div>
         <div className="lb-bg-gradient"></div>

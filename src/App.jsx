@@ -93,11 +93,11 @@ const AnimatedRoutes = ({ user, setUser }) => {
       <Route path="/games" element={<PageWrapper><Games /></PageWrapper>} />
       <Route path="/tournaments" element={<PageWrapper><Tournaments /></PageWrapper>} />
       <Route path="/community" element={<PageWrapper><Community /></PageWrapper>} />
-      <Route path="/leaderboard" element={<PageWrapper><Leaderboard /></PageWrapper>} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/quiz" element={<PageWrapper><Quiz /></PageWrapper>} />
       <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
       <Route path="/blog" element={<PageWrapper><Blog /></PageWrapper>} />
-      <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+      <Route path="/contact" element={<Contact />} />
       
       {/* Auth Routes */}
       <Route 
