@@ -50,16 +50,6 @@
   filter: blur(20px) brightness(0.15);
   transform: scale(1.1);
 }
-.app-shell {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.main-content {
-  flex: 1;
-}
-
 .home-bg-gradient {
   position: absolute;
   inset: 0;

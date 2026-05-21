@@ -25,9 +25,10 @@
 .lb-hero {
   position: relative;
   z-index: 2;
-  padding: 24px 5% 40px;
+  padding: 32px 5% 40px;
   margin-top: 0;
   text-align: center;
+  scroll-margin-top: 100px;
 }
 
 /* Override global App.css h1 gradient (fixes invisible title on route change) */

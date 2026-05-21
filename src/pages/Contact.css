@@ -57,8 +57,9 @@
 .c-hero {
   position: relative;
   z-index: 2;
-  padding: 24px 5% 40px;
+  padding: 32px 5% 40px;
   text-align: center;
+  scroll-margin-top: 100px;
 }
 
 .contact-page .hero-content {
